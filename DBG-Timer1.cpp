@@ -61,7 +61,10 @@ int main()
     }
 
     // Get the Room window handle
-    InitPaltalkWindows();
+    if (!InitPaltalkWindows())
+    {
+        std::cout << " did not made TOPMOST the Paltalk window \n";
+    }
 
     std::cout << "This should be Paltalk window handle: " << ghPtMain << "\n";
     std::cout << "input 1 to cont. :";
@@ -179,10 +182,11 @@ BOOL InitPaltalkWindows(void)
     // Getting and outputing Platalk room title
     std::cout << "This should be the room title: " << szTitle << "\n";
 
-    //wsprintf(szTemp, "Paltalk Text - %s", szTitle);
-    //SetWindowTextW(ghMain, szTemp);
+    // Make the Paltalk Room window the HWND_TOPMOST 
 
-    return TRUE;
+      return  SetWindowPos(ghPtMain, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+
+   
 }
 
 // Copy text and paste it to Paltalk
